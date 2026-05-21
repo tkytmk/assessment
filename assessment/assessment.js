@@ -17,22 +17,37 @@ assessmentButton.addEventListener(
         }
         console.log(userName);
 
-        //診断結果の表示
+        //診断結果の初期化
         resultDivision.innerText = '';  //resultDivision全体を空文字に置き換え
-        const header = document.createElement('h3');  //headerとしてh3タグの作成
-        header.innerText = '診断結果';  //headerのテキストを'診断結果'にする
-        resultDivision.appendChild(header);  //headerを子としてresultDivisionに追加
+
+        //headerDivisionの作成
+        const headerDivision = document.createElement('div');
+        headerDivision.setAttribute('class','card-header text-bg-primary');
+        headerDivision.innerText = '診断結果';
+
+        //bodyDivisionの作成
+        const bodyDivision = document.createElement('div');
+        bodyDivision.setAttribute('class','card-body');
 
         //文章の表示
         const paragraph = document.createElement('p');
+        paragraph.setAttribute('class','card-text');
         const result = assessment(userName);
         paragraph.innerText = result;
-        resultDivision.appendChild(paragraph)
+        bodyDivision.appendChild(paragraph);
+
+        //resultDivisionにBootstrapのスタイルを適用
+        resultDivision.setAttribute('class','card');
+
+        //resultDivisionにheaderDivisionとbodyDivisionを追加
+        resultDivision.appendChild(headerDivision);
+        resultDivision.appendChild(bodyDivision);
 
         //ツイートボタンの表示
         tweetDivision.innerText = '';
         const anchor = document.createElement('a');
-        const hrefValue = 'https://twitter.com/intent/tweet?button_hashtag=あなたのいいところ&ref_src=twsrc%5Etfw';
+        const hrefValue =
+        'https://twitter.com/intent/tweet?button_hashtag='+encodeURIComponent('あなたのいいところ')+'&ref_src=twsrc%5Etfw';
 
         anchor.setAttribute('href', hrefValue);
         anchor.setAttribute('class', 'twitter-hashtag-button');
